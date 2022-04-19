@@ -535,7 +535,8 @@ ppC2hs bi lbi clbi =
         ++ [ "--include=" ++ outBaseDir ]
 
           -- Options from dependent packages
-       ++ [ "--cppopts=" ++ opt
+       ++ ordNub
+          [ "--cppopts=" ++ opt
           | pkg <- pkgs
           , opt <- [ "-I" ++ opt | opt <- Installed.includeDirs pkg ]
                 ++ [         opt | opt@('-':c:_) <- Installed.ccOptions pkg
